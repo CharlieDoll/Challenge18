@@ -1,4 +1,4 @@
-const { Schema, Types } = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema(
   {
@@ -9,7 +9,7 @@ const userSchema = new Schema(
       trim: true,
     },
     email: {
-      type: string,
+      type: String,
       required: true,
       unique: true,
       match: [
@@ -39,16 +39,9 @@ const userSchema = new Schema(
   }
 );
 
-userSchema
-  .virtual("friendCount")
-  .get(function () {
-    return `${this.friends}`;
-  })
-  .set(function (v) {
-    const first = v.split(" ")[0];
-    const last = v.split(" ")[1];
-    this.set({ first, last });
-  });
+userSchema.virtual("friendCount").get(function () {
+  return this.friends.length;
+});
 
 const User = model("User", userSchema);
 
