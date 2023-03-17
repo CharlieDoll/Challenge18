@@ -11,7 +11,11 @@ const userController = {
     console.log("get user");
   },
   createUser(req, res) {
-    console.log("crate user");
+    console.log(req.body);
+    Users.create(req.body)
+      .then((newUser) => res.json(newUser))
+      .catch((err) => res.status(500).json(err));
+    console.log("create user");
   },
   deleteUser(req, res) {
     console.log("delete user");
