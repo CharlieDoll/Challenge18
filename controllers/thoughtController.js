@@ -8,13 +8,29 @@ const thoughtController = {
   },
 
   getSingleThought(req, res) {
-    console.log("get user");
+    Thoughts.findOne(req.body.params, { _id })
+      .then((thought) => res.json(thought))
+      .catch((err) => res.status(500).json(err));
+    console.log("get thought");
   },
   createThought(req, res) {
-    console.log("crate user");
+    Thoughts.create(req.body)
+      .then((createThought) => res.json(createThought))
+      .catch((err) => res.status(500).json(err));
   },
   updateThought(req, res) {
     console.log("update thought");
+    Thoughts.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $set: req.body },
+      { runValidators: true, new: true }
+    )
+      .then((thought) =>
+        !thought
+          ? res.status(404).json({ message: "No thought posted with this id!" })
+          : res.json(thought)
+      )
+      .catch((err) => res.status(500).json(err));
   },
   deleteThought(req, res) {
     console.log("delete user");
