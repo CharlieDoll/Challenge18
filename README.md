@@ -18,3 +18,5 @@ WHEN the API GET routes in Insomnia for users and thoughts is tested the data is
 WHEN the API POST, PUT, and DELETE routes are tested in Insomnia, they successfully create, update, and delete users and thoughts in the database
 ALSO, when the API POST and DELETE routes are tested in Insomnia they successfully create and delete reactions to thoughts and add and remove friends to a user’s friend list
 ```
+
+[![Watch the video](https://drive.google.com/file/d/1UF3xtQZkh3KKtLqVpkE3iUjrllYqxFbx/view)]
