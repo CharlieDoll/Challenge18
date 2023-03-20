@@ -8,7 +8,7 @@ const thoughtController = {
   },
 
   getSingleThought(req, res) {
-    Thoughts.findOne(req.body.params, { _id })
+    Thoughts.findOne({ _id: req.params.thoughtId })
       .then((thought) => res.json(thought))
       .catch((err) => res.status(500).json(err));
     console.log("get thought");
@@ -33,7 +33,16 @@ const thoughtController = {
       .catch((err) => res.status(500).json(err));
   },
   deleteThought(req, res) {
-    console.log("delete user");
+    Thoughts.findOneAndRemove({ _id: req.params.thoughtId })
+      .then((thought) =>
+        !thought
+          ? res.status(404).json({ message: "Thought ID does not exist!" })
+          : res.json(thought)
+      )
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   },
 };
 
